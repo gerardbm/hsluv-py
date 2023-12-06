@@ -7,23 +7,33 @@ import os
 from hsluv import hsluv_to_rgb
 from PIL import Image, ImageDraw
 
-# Colors
-BA = 155
+# Preview
+xres = True
+# shot = False
 
-H01 = BA  ; S01 = 100 ; L01 = 18 ; COL01 = [] ; ZIP01 = [] #base1
-H02 = BA  ; S02 = 100 ; L02 = 40 ; COL02 = [] ; ZIP02 = [] #base2
-H03 = BA  ; S03 = 100 ; L03 = 62 ; COL03 = [] ; ZIP03 = [] #base3
-H04 = BA  ; S04 = 100 ; L04 = 84 ; COL04 = [] ; ZIP04 = [] #base4
-H05 = BA  ; S05 = 100 ; L05 = 84 ; COL05 = [] ; ZIP05 = [] #base4
-H06 = BA  ; S06 = 100 ; L06 = 84 ; COL06 = [] ; ZIP06 = [] #base4
-H07 = BA  ; S07 = 100 ; L07 = 84 ; COL07 = [] ; ZIP07 = [] #base4
-H08 = BA  ; S08 = 100 ; L08 = 84 ; COL08 = [] ; ZIP08 = [] #base4
-H09 = BA  ; S09 = 100 ; L09 = 84 ; COL09 = [] ; ZIP09 = [] #base4
-H10 = BA  ; S10 = 100 ; L10 = 84 ; COL10 = [] ; ZIP10 = [] #base4
-H11 = BA  ; S11 = 100 ; L11 = 84 ; COL11 = [] ; ZIP11 = [] #base4
-H12 = BA  ; S12 = 100 ; L12 = 84 ; COL12 = [] ; ZIP12 = [] #base4
+# Colors
+BA = 240
+SA = 30
+
+H00 = BA  ; S00 = 0 ; L00 = 100 ; COL00 = [] ; ZIP00 = [] #col00
+
+H01 = BA  ; S01 = SA ; L01 = 95 ; COL01 = [] ; ZIP01 = [] #col01
+H02 = BA  ; S02 = SA ; L02 = 90 ; COL02 = [] ; ZIP02 = [] #col02
+H03 = BA  ; S03 = SA ; L03 = 85 ; COL03 = [] ; ZIP03 = [] #col03
+H04 = BA  ; S04 = SA ; L04 = 80 ; COL04 = [] ; ZIP04 = [] #col04
+H05 = BA  ; S05 = SA ; L05 = 75 ; COL05 = [] ; ZIP05 = [] #col05
+H06 = BA  ; S06 = SA ; L06 = 70 ; COL06 = [] ; ZIP06 = [] #col06
+H07 = BA  ; S07 = SA ; L07 = 65 ; COL07 = [] ; ZIP07 = [] #col07
+H08 = BA  ; S08 = SA ; L08 = 60 ; COL08 = [] ; ZIP08 = [] #col08
+H09 = BA  ; S09 = SA ; L09 = 55 ; COL09 = [] ; ZIP09 = [] #col09
+H10 = BA  ; S10 = SA ; L10 = 50 ; COL10 = [] ; ZIP10 = [] #col10
+H11 = BA  ; S11 = SA ; L11 = 35 ; COL11 = [] ; ZIP11 = [] #col11
+H12 = BA  ; S12 = SA ; L12 = 20 ; COL12 = [] ; ZIP12 = [] #col12
 
 # Conversion to RGB
+
+A00 = hsluv_to_rgb([H00, S00, L00])
+for i in A00: i = round(i*255); COL00.extend([i])
 
 A01 = hsluv_to_rgb([H01, S01, L01])
 for i in A01: i = round(i*255); COL01.extend([i])
@@ -63,6 +73,7 @@ for i in A12: i = round(i*255); COL12.extend([i])
 
 
 # Conversion to HEX
+for i in A00: i = round(i*255); ZIP00.extend([f'{i:02X}']); HEX00 = '#'+''.join(ZIP00)
 for i in A01: i = round(i*255); ZIP01.extend([f'{i:02X}']); HEX01 = '#'+''.join(ZIP01)
 for i in A02: i = round(i*255); ZIP02.extend([f'{i:02X}']); HEX02 = '#'+''.join(ZIP02)
 for i in A03: i = round(i*255); ZIP03.extend([f'{i:02X}']); HEX03 = '#'+''.join(ZIP03)
@@ -77,51 +88,92 @@ for i in A11: i = round(i*255); ZIP11.extend([f'{i:02X}']); HEX11 = '#'+''.join(
 for i in A12: i = round(i*255); ZIP12.extend([f'{i:02X}']); HEX12 = '#'+''.join(ZIP12)
 
 # Define the individual width
-W = 100
-H = 100
-SEP = 0
+W = 120
+H = 70
+SEP = 10
 
-w, h = W*4, H*1+SEP*2
+w, h = W*2+SEP*2, H*6+SEP*2
 
 # Background
 BG = []
-A0 = hsluv_to_rgb([H01, S01, L01])
-for i in A0: i = round(i*255); BG.extend([i])
-image = Image.new("RGB", (w, h), color=(BG[0], BG[1], BG[2]))
+# A0 = hsluv_to_rgb([H01, S01, L01])
+# for i in A0: i = round(i*255); BG.extend([i])
+image = Image.new("RGB", (w, h), color=(COL00[0], COL00[1], COL00[2]))
 
 # COL01
-SHAPE01 = [(W*0, 0), (W*0+W, H)]
+SHAPE01 = [(0+SEP, H*0+SEP), (W+SEP, H*0+H+SEP)]
 fig1 = ImageDraw.Draw(image)
 fig1.rectangle(SHAPE01, fill=(COL01[0], COL01[1], COL01[2]))
 
 # COL02
-SHAPE02 = [(W*1, 0), (W*1+W, H)]
+SHAPE02 = [(0+SEP, H*1+SEP), (W+SEP, H*1+H+SEP)]
 fig2 = ImageDraw.Draw(image)
 fig2.rectangle(SHAPE02, fill=(COL02[0], COL02[1], COL02[2]))
 
 # COL03
-SHAPE03 = [(W*2, 0), (W*2+W, H)]
+SHAPE03 = [(0+SEP, H*2+SEP), (W+SEP, H*2+H+SEP)]
 fig3 = ImageDraw.Draw(image)
 fig3.rectangle(SHAPE03, fill=(COL03[0], COL03[1], COL03[2]))
 
 # COL04
-SHAPE04 = [(W*3, 0), (W*3+W, H)]
+SHAPE04 = [(0+SEP, H*3+SEP), (W+SEP, H*3+H+SEP)]
 fig4 = ImageDraw.Draw(image)
 fig4.rectangle(SHAPE04, fill=(COL04[0], COL04[1], COL04[2]))
 
+# COL05
+SHAPE05 = [(0+SEP, H*4+SEP), (W+SEP, H*4+H+SEP)]
+fig5 = ImageDraw.Draw(image)
+fig5.rectangle(SHAPE05, fill=(COL05[0], COL05[1], COL05[2]))
+
+# COL06
+SHAPE06 = [(0+SEP, H*5+SEP), (W+SEP, H*5+H+SEP)]
+fig6 = ImageDraw.Draw(image)
+fig6.rectangle(SHAPE06, fill=(COL06[0], COL06[1], COL06[2]))
+
+# COL07
+SHAPE07 = [(W+SEP, H*0+SEP), (W+W+SEP, H*0+H+SEP)]
+fig7 = ImageDraw.Draw(image)
+fig7.rectangle(SHAPE07, fill=(COL07[0], COL07[1], COL07[2]))
+
+# COL08
+SHAPE08 = [(W+SEP, H*1+SEP), (W+W+SEP, H*1+H+SEP)]
+fig8 = ImageDraw.Draw(image)
+fig8.rectangle(SHAPE08, fill=(COL08[0], COL08[1], COL08[2]))
+
+# COL09
+SHAPE09 = [(W+SEP, H*2+SEP), (W+W+SEP, H*2+H+SEP)]
+fig9 = ImageDraw.Draw(image)
+fig9.rectangle(SHAPE09, fill=(COL09[0], COL09[1], COL09[2]))
+
+# COL10
+SHAPE10 = [(W+SEP, H*3+SEP), (W+W+SEP, H*3+H+SEP)]
+fig10 = ImageDraw.Draw(image)
+fig10.rectangle(SHAPE10, fill=(COL10[0], COL10[1], COL10[2]))
+
+# COL11
+SHAPE11 = [(W+SEP, H*4+SEP), (W+W+SEP, H*4+H+SEP)]
+fig11 = ImageDraw.Draw(image)
+fig11.rectangle(SHAPE11, fill=(COL11[0], COL11[1], COL11[2]))
+
+# COL12
+SHAPE12 = [(W+SEP, H*5+SEP), (W+W+SEP, H*5+H+SEP)]
+fig12 = ImageDraw.Draw(image)
+fig12.rectangle(SHAPE12, fill=(COL12[0], COL12[1], COL12[2]))
+
 # Output
-print("col01", HEX01)
-print("col02", HEX02)
-print("col03", HEX03)
-print("col04", HEX04)
-print("col05", HEX05)
-print("col06", HEX06)
-print("col07", HEX07)
-print("col08", HEX08)
-print("col09", HEX09)
-print("col10", HEX10)
-print("col11", HEX11)
-print("col12", HEX12)
+if xres is True:
+    print("col01", HEX01)
+    print("col02", HEX02)
+    print("col03", HEX03)
+    print("col04", HEX04)
+    print("col05", HEX05)
+    print("col06", HEX06)
+    print("col07", HEX07)
+    print("col08", HEX08)
+    print("col09", HEX09)
+    print("col10", HEX10)
+    print("col11", HEX11)
+    print("col12", HEX12)
 
 # Generate the image
 IMAGE='light.png'
