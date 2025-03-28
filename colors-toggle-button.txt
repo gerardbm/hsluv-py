@@ -1,0 +1,50 @@
+Tenia
+#eef1f5 sobre #ffffff L = 95, per tant 5% menys
+#33373c sobre #1f2225 L = 23 i L = 13, pe tant 10% menys, estava sobredimensionat
+
+---
+
+He de partir del següent:
+
+Base      | n%      | Color resultant
+
+#ffffff = 100% - 20 = 80 (color 4 de hsluv-light.py) → #BAC8D8
+#1f2225 = 13% + 30 = 33 (color 6 de hsluv-night.py) → #494E55
+
+Taula light     Taula night
+------------------------------
+col00 #FFFFFF   col00 #000000
+col01 #EEF1F5   col01 #15181A
+col02 #DCE3EB   col02 #1F2225
+col03 #CBD5E2   col03 #292C31
+col04 #BAC8D8   col04 #33373C
+col05 #A8BBCF   col05 #3E4348
+col06 #97AEC6   col06 #494E55
+col07 #8AA0B8   col07 #545A61
+col08 #7E93A9   col08 #5F666F
+col09 #73869A   col09 #6B737C
+col10 #67798B   col10 #778089
+col11 #5C6C7D   col11 #838C97
+col12 #52606F   col12 #8F9AA5
+col13 #475461   col13 #9CA7B4
+col14 #3D4854   col14 #ABB4BF
+col15 #333C46   col15 #BAC2CB
+col16 #29313A   col16 #CACFD6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
